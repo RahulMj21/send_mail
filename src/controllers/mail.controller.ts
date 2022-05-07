@@ -5,6 +5,14 @@ import CustomError from "../utils/CustomErrorHandler";
 import submitMail from "../utils/sendMail";
 
 class MailController {
+  healthCheck = BigPromise(
+    async (req: Request, res: Response, next: NextFunction) => {
+      res.status(200).json({
+        success: true,
+        message: "all good..",
+      });
+    }
+  );
   sendMail = BigPromise(
     async (
       req: Request<{}, {}, MailInput["body"]>,
