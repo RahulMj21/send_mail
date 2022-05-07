@@ -1,24 +1,39 @@
 import nodemailer from "nodemailer";
 
-const submitMail = async () => {
-  const transport = nodemailer.createTransport({
-    host: process.env.MAIL_HOST,
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
-    },
-  });
+const submitMail = async ({
+  from,
+  to,
+  subject,
+  html,
+}: {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+}) => {
+  try {
+    const transport = nodemailer.createTransport({
+      host: process.env.MAIL_HOST,
+      port: Number(process.env.MAIL_PORT),
+      secure: false,
+      service: "gmail",
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+    });
 
-  const info = transport.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>',
-    to: "bar@example.com, baz@example.com",
-    subject: "Hello ✔",
-    html: "<b>Hello world?</b>",
-  });
+    const info = transport.sendMail({
+      from,
+      to,
+      subject,
+      html,
+    });
 
-  return info;
+    return info;
+  } catch (error: any) {
+    return false;
+  }
 };
 
 export default submitMail;

@@ -12,7 +12,8 @@ const errorHandler = async (
   };
 
   if (err?.status) {
-    (data.status = 500), (data.message = err.message);
+    data.status = err.status;
+    data.message = err.message;
   }
 
   return res.status(data.status).json({
