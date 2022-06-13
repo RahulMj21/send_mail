@@ -21,7 +21,6 @@ class MailController {
     ) => {
       const info = await submitMail(req.body);
       if (!info) return next(new CustomError(500, "email sending error"));
-      console.log("mail sending info ---> ", info);
 
       return res.status(200).json({
         success: true,

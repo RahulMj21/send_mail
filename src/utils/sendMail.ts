@@ -2,12 +2,10 @@ import nodemailer from "nodemailer";
 
 const submitMail = async ({
   from,
-  to,
   subject,
   html,
 }: {
   from: string;
-  to: string;
   subject: string;
   html: string;
 }) => {
@@ -25,7 +23,7 @@ const submitMail = async ({
 
     const info = transport.sendMail({
       from,
-      to,
+      to: process.env.MAIL_USER,
       subject,
       html,
     });
